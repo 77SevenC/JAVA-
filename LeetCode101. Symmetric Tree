@@ -1,0 +1,42 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+/*
+北逼小白瞎比bi：
+1. 在recursion方程中，去一次寻找镜子对等关系的时候，一定要注意check的先后顺序
+- 首先check左右两个胖孩咂还在否？若胖孩咂都离家出走 return true 因为结果只有老爹自己对着照镜子，
+  那就是肯定找到和一个和自己一模一样的老爹
+- 然后check左右会不会只有一个孤单的胖孩咂？只有一个胖孩咂 肯定return false 
+- 再接着check 假如两个胖傻子都在，看他俩是不是一胖一瘦 如果是不一样胖 不一样壮 那就return false啦
+
+2. 最后recursion 走起 左右胖or瘦孩咂相互照镜子 你的左瘦就是我的右瘦 你的右瘦就是我的左瘦
+
+time: O(n), Space: O(height)
+*/
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        //base case check 
+        if(root == null){
+            return true;
+        }
+        return isSymmetric(root.left, root.right);
+    }
+    private boolean isSymmetric(TreeNode one, TreeNode two){
+        if(one == null && two == null){
+            return true;
+        }
+         if(one == null || two == null){
+            return false;
+        }
+        if(one.val != two.val){
+            return false;
+        }
+        return isSymmetric(one.left, two.right) && isSymmetric(one.right, two.left);
+    }
+}
