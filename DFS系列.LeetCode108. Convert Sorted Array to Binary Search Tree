@@ -1,0 +1,55 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+/*
+北逼小白瞎比bi：解题steps
+1. clarification:
+input: sorted array (in-order)
+problem: convert it to a height balanced BST
+output: a tree, TreeNode root
+
+BST property: in-order 
+Balanced tree property: same height for left and right subtrees
+
+2.solution: use recursion to construct the tree
+P.S: 建树🌲的重点是1）找root 2）找左右孩子的个数和value分别是什么 方可建🌲
+step1: find the root of this balanced tree 
+-根据性质 mid of the nums is the root
+
+step2: construct root.left
+
+step3: construct root.right
+
+step4: return root;
+
+time: O(n)
+- find the mid O(1)
+- construct left sub + right sub O(n)
+
+space: O(n), while O(logN)recursion 了这个tree，but总体是O(n),
+
+*/
+class Solution {
+    public TreeNode sortedArrayToBST(int[] nums) {
+        //base case check 
+        return construct(nums, 0, nums.length - 1);   
+    }
+    private TreeNode construct(int[]nums, int left, int right){
+       //不能是left>=right，因为left==right可以成立,比如是只有root的时候
+        if(left > right){
+            return null;
+        }
+        //find the mid == TreeNode root
+        int mid = left + (right - left) / 2;
+        TreeNode root = new TreeNode(nums[mid]);
+        root.left = construct(nums, left, mid - 1);
+        root.right = construct(nums, mid + 1, right);
+        return root;
+    }
+}
