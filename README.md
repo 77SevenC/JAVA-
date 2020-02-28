@@ -1,2 +1,2 @@
 # JAVA-
-Algorithm and Data Structure practice 
+Algorithm and data structure practice 
